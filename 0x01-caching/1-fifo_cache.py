@@ -6,9 +6,7 @@ from base_caching import BaseCaching
 
 
 class FIFOCache(BaseCaching):
-    """ BaseCaching defines:
-      - constants of your caching system
-      - where your data are stored (in a dictionary)
+    """ FIFO Caching
     """
     def __init__(self):
         """ Initiliaze

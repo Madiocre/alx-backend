@@ -1,12 +1,12 @@
-#!/usr/bin/python3
-""" LIFO-Caching module
+#!/usr/bin/env python3
+""" MRU-Caching module
 """
 from collections import OrderedDict
 from base_caching import BaseCaching
 
 
-class LIFOCache(BaseCaching):
-    """ LIFO Caching
+class MRUCache(BaseCaching):
+    """MRU Caching
     """
     def __init__(self):
         """ Initiliaze
@@ -19,18 +19,18 @@ class LIFOCache(BaseCaching):
         """
         if key is None or item is None:
             return
-
         if key not in self.cache_data:
             if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                last_key, _ = self.cache_data.popitem(True)
-                print("DISCARD:", last_key)
-        self.cache_data[key] = item
-        self.cache_data.move_to_end(key, last=True)
+                mru_key, _ = self.cache_data.popitem(False)
+                print("DISCARD:", mru_key)
+            self.cache_data[key] = item
+            self.cache_data.move_to_end(key, last=False)
+        else:
+            self.cache_data[key] = item
 
     def get(self, key):
         """ Get an item by key
         """
-        if key is None or key not in self.cache_data.keys():
-            return None
-
-        return self.cache_data[key]
+        if key is not None and key in self.cache_data:
+            self.cache_data.move_to_end(key, last=False)
+        return self.cache_data.get(key, None)
