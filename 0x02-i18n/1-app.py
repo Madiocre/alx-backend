@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Task 0: Basic Flask app
+'''Task 1: Babel
 '''
 
 from flask import Flask, render_template
@@ -7,6 +7,7 @@ from flask_babel import Babel
 
 
 class Config:
+    """ Configure """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
@@ -17,6 +18,7 @@ app.config.from_object(Config)
 app.url_map.strict_slashes = False
 
 babel = Babel(app)
+
 
 @app.route('/')
 def index():
